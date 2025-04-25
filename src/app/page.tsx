@@ -10,9 +10,12 @@ import ChatForm from '../components/ChatForm';
 
 export default function Chat() {
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
+  const { messages, input, handleInputChange, handleSubmit, status } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [shouldScroll, setShouldScroll] = useState(false);
+
+  const isLoading = status === "streaming";
+  const isSubmitted = status === "submitted"
 
   // Custom submit handler to control when to scroll
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +41,8 @@ export default function Chat() {
       <div className="flex-1 w-full max-w-2xl mx-auto px-4 flex flex-col relative">
         <MessageList 
           messages={messages} 
-          isLoading={isLoading} 
+          isLoading={isLoading}
+          isSubmitted={isSubmitted}
           messagesEndRef={messagesEndRef} 
         />
 
