@@ -9,9 +9,9 @@ type ChatFormProps = {
 
 const ChatForm = ({ input, handleInputChange, onSubmit, isLoading }: ChatFormProps) => {
   return (
-    <form onSubmit={onSubmit} className="absolute bottom-0 left-0 right-0 p-4 z-10">
+    <form onSubmit={onSubmit} className="absolute bottom-0 left-0 right-0 p-4 z-10 flex">
       <input
-        className="w-full p-4 pr-14 border border-gray-300 bg-white dark:bg-gray-800 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5e23b3] transition-all duration-200"
+        className="w-full max-w-2xl mx-auto p-4 pr-14 border border-gray-300 bg-white dark:bg-gray-800 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-[#5e23b3] transition-all duration-200"
         value={input}
         placeholder="Type your message..."
         onChange={handleInputChange}

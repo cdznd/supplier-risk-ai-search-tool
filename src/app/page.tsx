@@ -2,16 +2,18 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useRef, useState } from 'react';
+
 import Background from '../components/Background';
 import Header from '../components/Header';
 import MessageList from '../components/MessageList';
 import ChatForm from '../components/ChatForm';
 
 export default function Chat() {
+
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [shouldScroll, setShouldScroll] = useState(false);
-  
+
   // Custom submit handler to control when to scroll
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     handleSubmit(e);
