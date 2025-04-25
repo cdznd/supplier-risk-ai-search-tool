@@ -51,11 +51,11 @@ const ChatForm = ({ input, handleInputChange, onSubmit, isLoading }: ChatFormPro
         </div>
         <button 
           type="submit" 
-          className="ml-2 p-2 bg-[#5e23b3] text-white rounded-full hover:bg-[#4c1c91] disabled:opacity-50 disabled:hover:bg-[#5e23b3] transform hover:scale-105 transition-all duration-200 flex-shrink-0"
+          className="ml-2 p-3 cursor-pointer bg-[#5e23b3] text-white rounded-full hover:bg-[#4c1c91] disabled:opacity-50 disabled:hover:bg-[#5e23b3] transform hover:scale-105 transition-all duration-200 flex-shrink-0"
           disabled={isLoading || !input.trim()}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11h4a1 1 0 00.947-.684l2-5a1 1 0 000-.632l-2-5a1 1 0 00-.947-.684h-4.38a1 1 0 00-.884.5l-4.382 6.884a.5.5 0 00.442.744H8V15.5a.5.5 0 00.724.447l7-4a.5.5 0 000-.894l-7-4A.5.5 0 008 7.5V11H1.118a.5.5 0 00-.447.724l4 6a.5.5 0 00.894 0l2-3z" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="h-5 w-5 fill-current">
+            <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/>
           </svg>
         </button>
       </div>
