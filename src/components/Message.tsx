@@ -70,8 +70,8 @@ const MessageComponent = ({ message, index }: MessageProps) => {
                         </li>
                       ),
                       p: ({ node, children, ...props }) => {
-                        const onlyChild = node.children?.[0];
-                        const isStrong = onlyChild?.type === 'element' && onlyChild.tagName === 'strong';
+                        const onlyChild = node?.children?.[0];
+                        const isStrong = onlyChild?.type === 'element' && onlyChild?.tagName === 'strong';
                       
                         if (isStrong) {
                           return <h6 className="text-lg font-semibold my-4">{children}</h6>;
