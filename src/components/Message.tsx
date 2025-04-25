@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Message } from '@ai-sdk/react';
+import { useState } from 'react';
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -13,13 +14,32 @@ type MessageProps = {
 };
 
 const MessageComponent = ({ message, index }: MessageProps) => {
+  const [copyFeedback, setCopyFeedback] = useState(false);
+
+  const copyMessage = () => {
+    // Extract text content from message parts
+    const textContent = message.parts
+      ?.filter(part => part.type === 'text')
+      .map(part => part.text)
+      .join('\n');
+    
+    if (textContent) {
+      navigator.clipboard.writeText(textContent)
+        .then(() => {
+          setCopyFeedback(true);
+          setTimeout(() => setCopyFeedback(false), 2000);
+        })
+        .catch(err => console.error('Failed to copy message: ', err));
+    }
+  };
+
   return (
     <div 
       className={`p-4 rounded-lg transition-all duration-300 ease-in-out animate-fade-in backdrop-blur-sm ${
         message.role === 'user' // User and AI response should have different styles
           ? 'bg-[#5e23b3]/70 border-l-4 border-[#5e23b3] ml-auto text-white' 
           : 'bg-[#2D9954]/70 border-l-4 border-[#2D9954] mr-auto text-white'
-      } max-w-[85%] shadow-md hover:shadow-lg transition-shadow`}
+      } max-w-[85%] shadow-md hover:shadow-lg transition-shadow relative`}
       style={{ 
         animationDelay: `${index * 0.1}s`,
         transform: 'translateY(0)',
@@ -27,17 +47,19 @@ const MessageComponent = ({ message, index }: MessageProps) => {
       }}
     >
       <div className="font-semibold mb-1 flex items-center">
-        {message.role === 'user' ? (
-          <>
-            <span className="mr-2">You:</span>
-            <div className="h-1.5 w-1.5 rounded-full bg-white/70 animate-pulse"></div>
-          </>
-        ) : (
-          <>
-            <span className="mr-2">AI:</span>
-            <div className="h-1.5 w-1.5 rounded-full bg-white/70 animate-pulse"></div>
-          </>
-        )}
+        <div className="flex items-center">
+          {message.role === 'user' ? (
+            <>
+              <span className="mr-2">You:</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-white/70 animate-pulse"></div>
+            </>
+          ) : (
+            <>
+              <span className="mr-2">AI:</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-white/70 animate-pulse"></div>
+            </>
+          )}
+        </div>
       </div>
       <div className="markdown-content">
         {message.parts?.map((part, i) => {
@@ -81,6 +103,15 @@ const MessageComponent = ({ message, index }: MessageProps) => {
               );
           }
         })}
+      </div>
+      <div className="mt-2 flex justify-end">
+        <button 
+          onClick={copyMessage}
+          className="cursor-pointer text-white/70 hover:text-white transition-colors p-1 rounded-full hover:bg-white/10 flex items-center text-xs"
+          title="Copy message"
+        >
+          <span className="mr-2">{copyFeedback ? 'Copied!' : 'Copy'}</span>
+        </button>
       </div>
     </div>
   );
