@@ -36,20 +36,22 @@ const ChatForm = ({ input, handleInputChange, onSubmit, isLoading }: ChatFormPro
 
   return (
     <form onSubmit={onSubmit} className="absolute bottom-0 left-0 right-0 p-4 z-20 flex justify-center">
-      <div className="w-full max-w-xl relative">
-        <textarea
-          ref={textareaRef}
-          className="w-full p-3 pr-12 border border-gray-300 bg-white dark:bg-gray-800 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-[#5e23b3] transition-all duration-200 min-h-[48px] resize-none overflow-hidden"
-          value={input}
-          placeholder="Type your message..."
-          onChange={handleInputChange}
-          disabled={isLoading}
-          rows={1}
-          onKeyDown={handleKeyDown}
-        />
+      <div className="w-full max-w-xl flex items-center">
+        <div className="flex-grow flex items-center relative">
+          <textarea
+            ref={textareaRef}
+            className="w-full h-full p-3 pr-3 border border-gray-300 bg-white dark:bg-gray-800 rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-[#5e23b3] transition-all duration-200 min-h-[48px] resize-none overflow-hidden"
+            value={input}
+            placeholder="Type your message..."
+            onChange={handleInputChange}
+            disabled={isLoading}
+            rows={1}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
         <button 
           type="submit" 
-          className="absolute right-3 bottom-3 p-2 bg-[#5e23b3] text-white rounded-full hover:bg-[#4c1c91] disabled:opacity-50 disabled:hover:bg-[#5e23b3] transform hover:scale-105 transition-all duration-200"
+          className="ml-2 p-2 bg-[#5e23b3] text-white rounded-full hover:bg-[#4c1c91] disabled:opacity-50 disabled:hover:bg-[#5e23b3] transform hover:scale-105 transition-all duration-200 flex-shrink-0"
           disabled={isLoading || !input.trim()}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
