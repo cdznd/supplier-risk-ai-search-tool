@@ -52,19 +52,19 @@ const MessageComponent = ({ message, index }: MessageProps) => {
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeHighlight]}
                     components={{
-                      a: ({ node, ...props }) => <CustomLink {...props} />,
-                      blockquote: ({ node, ...props }) => (
+                      a: ({ ...props }) => <CustomLink {...props} />,
+                      blockquote: ({ ...props }) => (
                         <blockquote 
                           className="pl-4 border-l-4 border-blue-300/50 italic text-white/80 my-2 transition-all hover:border-blue-300/70" 
                           {...props} 
                         />
                       ),
-                      table: ({ node, ...props }) => (
+                      table: ({ ...props }) => (
                         <div className="overflow-x-auto my-4">
                           <table className="min-w-full" {...props} />
                         </div>
                       ),
-                      li: ({ node, children, ...props }) => (
+                      li: ({ children, ...props }) => (
                         <li {...props}>
                           <span className="li-content text-white/90">{children}</span>
                         </li>

@@ -1,4 +1,3 @@
-import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 
 import { geminiModel } from '@/lib/ai';
