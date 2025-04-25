@@ -176,6 +176,17 @@
   font-size: 1.1rem;
 }
 
+/* Bold text styling */
+.markdown-content li strong,
+.markdown-content p strong {
+  font-weight: 700;
+  color: #F2853B;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 1px rgba(244, 114, 182, 0.3);
+  position: relative;
+  padding: 0 0.05em;
+}
+
 /* Images */
 .markdown-content img {
   max-width: 100%;

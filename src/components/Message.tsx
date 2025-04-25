@@ -71,7 +71,7 @@ const MessageComponent = ({ message, index }: MessageProps) => {
                         </li>
                       ),
                       p: ({ node, children, ...props }) => {
-                        return <p className="my-2 text-white/90" {...props}>{children}</p>;
+                        return <p className="my-2 text-white/80" {...props}>{children}</p>;
                       },
                     }}
                   >
