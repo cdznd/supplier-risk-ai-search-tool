@@ -10,7 +10,7 @@ import ChatForm from '../components/ChatForm';
 
 export default function Chat() {
 
-  const { messages, input, handleInputChange, handleSubmit, status } = useChat();
+  const { messages, input, handleInputChange, handleSubmit, status, error } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [shouldScroll, setShouldScroll] = useState(false);
 
@@ -43,7 +43,8 @@ export default function Chat() {
           messages={messages} 
           isLoading={isLoading}
           isSubmitted={isSubmitted}
-          messagesEndRef={messagesEndRef} 
+          messagesEndRef={messagesEndRef}
+          error={error}
         />
 
         <ChatForm 

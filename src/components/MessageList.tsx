@@ -9,9 +9,10 @@ type MessageListProps = {
   isLoading: boolean;
   isSubmitted: boolean;
   messagesEndRef: MutableRefObject<HTMLDivElement | null>;
+  error: Error | undefined;
 };
 
-const MessageList = ({ messages, isLoading, isSubmitted, messagesEndRef }: MessageListProps) => {
+const MessageList = ({ messages, isLoading, isSubmitted, messagesEndRef, error }: MessageListProps) => {
   return (
     <div className="absolute inset-0 overflow-y-scroll w-full p-4
                     scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 
@@ -30,6 +31,12 @@ const MessageList = ({ messages, isLoading, isSubmitted, messagesEndRef }: Messa
             {isSubmitted && <Atom color={["#F2853B", "#2D9954", "#5e23b3"]} />}
             {isLoading && <ThreeDot color={["#F2853B", "#2D9954", "#5e23b3"]} />}
           </div>
+          {error && (
+            <div className="bg-red-100/70 text-red-700 px-4 py-3 rounded relative mt-4">
+              <strong className="font-bold">Error: </strong>
+              <span className="block sm:inline">{error.message}</span>
+            </div>
+          )}
           <div ref={messagesEndRef} className="h-4" />
         </div>
       )}
