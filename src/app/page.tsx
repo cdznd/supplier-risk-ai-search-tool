@@ -23,7 +23,6 @@ export default function Chat() {
     setShouldScroll(true);
   };
 
-  // Only scroll when a new user message is sent, not when AI responds
   useEffect(() => {
     if (shouldScroll) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
