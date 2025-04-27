@@ -1,0 +1,84 @@
+{
+  "suppliers": [
+    {
+      "id": 1,
+      "name": "MediTech Solutions",
+      "riskScore": 8,
+      "riskCategories": ["Compliance", "Cybersecurity", "Operational"],
+      "location": "Boston, USA",
+      "industry": "Healthcare"
+    },
+    {
+      "id": 2,
+      "name": "GlobalChip Manufacturing",
+      "riskScore": 7,
+      "riskCategories": ["Supply Chain", "Geopolitical", "Financial"],
+      "location": "Taipei, Taiwan",
+      "industry": "Electronics"
+    },
+    {
+      "id": 3,
+      "name": "EcoPlastics Inc.",
+      "riskScore": 6,
+      "riskCategories": ["Environmental", "Reputational", "Compliance"],
+      "location": "Frankfurt, Germany",
+      "industry": "Manufacturing"
+    },
+    {
+      "id": 4,
+      "name": "FinSecure Solutions",
+      "riskScore": 9,
+      "riskCategories": ["Cybersecurity", "Compliance", "Financial"],
+      "location": "London, UK",
+      "industry": "Financial Services"
+    },
+    {
+      "id": 5,
+      "name": "AgriGlobal Distributors",
+      "riskScore": 4,
+      "riskCategories": ["Supply Chain", "Operational", "Environmental"],
+      "location": "São Paulo, Brazil",
+      "industry": "Agriculture"
+    },
+    {
+      "id": 6,
+      "name": "CareHealth Systems",
+      "riskScore": 7,
+      "riskCategories": ["Compliance", "Legal", "Operational"],
+      "location": "Chicago, USA",
+      "industry": "Healthcare"
+    },
+    {
+      "id": 7,
+      "name": "PrecisionParts Ltd.",
+      "riskScore": 5,
+      "riskCategories": ["Supply Chain", "Operational", "Financial"],
+      "location": "Stuttgart, Germany",
+      "industry": "Automotive"
+    },
+    {
+      "id": 8,
+      "name": "CloudSecure Technologies",
+      "riskScore": 8,
+      "riskCategories": ["Cybersecurity", "Legal", "Compliance"],
+      "location": "San Francisco, USA",
+      "industry": "Technology"
+    },
+    {
+      "id": 9,
+      "name": "PharmaNova",
+      "riskScore": 6,
+      "riskCategories": ["Compliance", "Reputational", "Legal"],
+      "location": "Basel, Switzerland",
+      "industry": "Healthcare"
+    },
+    {
+      "id": 10,
+      "name": "RawMaterials Global",
+      "riskScore": 7,
+      "riskCategories": ["Geopolitical", "Environmental", "Supply Chain"],
+      "location": "Melbourne, Australia",
+      "industry": "Mining"
+    }
+  ]
+}
