@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Message } from '@ai-sdk/react';
 import { useState } from 'react';
+import { Message } from '@ai-sdk/react';
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -8,20 +8,12 @@ import rehypeHighlight from 'rehype-highlight';
 
 import CustomLink from '../CustomLink';
 
-type ToolInvocationState = 'partial-call' | 'call' | 'result';
+import { BlinkBlur } from 'react-loading-indicators';
 
-interface ToolInvocation {
-  toolName: string;
-  toolCallId: string;
-  state: ToolInvocationState;
-  args?: Record<string, any>;
-  result?: any;
-}
-
-interface MessagePart {
+type MessagePart = {
   type: string;
   text?: string;
-  toolInvocation?: ToolInvocation;
+  toolInvocation?: any;
 }
 
 type MessageProps = {
@@ -29,10 +21,10 @@ type MessageProps = {
   index: number;
 };
 
-const renderToolInvocation = (part: any, messageContent: string) => {
+const renderToolInvocation = (part: MessagePart, messageContent: string) => {
   if (part.type !== 'tool-invocation') return null;
 
-  const { callId, toolName, state } = part.toolInvocation;
+  const { toolName, state } = part.toolInvocation;
 
   const isToolCallingInProgress =
     state === 'partial-call' ||
@@ -43,29 +35,20 @@ const renderToolInvocation = (part: any, messageContent: string) => {
 
   if (isToolCallingInProgress) {
     return (
-      <div className="bg-yellow-600/30 text-white px-3 py-1 rounded-full inline-flex items-center mb-2 text-xs font-medium">
-        <span className="animate-pulse mr-2">●</span>
-        <span>Tool Calling {toolName} In Progress ...</span>
-        {/* <span>
-              Tool{parts.filter(isToolInProgress).length > 1 ? 's' : ''} running:
-              {messageParts
-                .filter(isToolInProgress)
-                .map(part => isToolInvocation(part) ? part.toolInvocation.toolName : '')
-                .filter(Boolean)
-                .join(', ')}
-            </span> */}
+      <div className="bg-yellow-500/40 text-white px-4 py-2 mr-2 mb-2 rounded-full inline-flex items-center text-sm font-medium shadow-md space-x-1">
+        <BlinkBlur color="#CBAF03" size="small" text="" textColor="" style={{ fontSize: '4px' }} />
+        <span className='ml-1'>Executing <span className="font-bold">{toolName}</span> tool</span>
       </div>
     )
   }
 
   if (isToolCallingComplete) {
     return (
-      <div key={callId} className="tool-invocation result p-2 bg-green-900/50 rounded my-2 text-white/90 border-l-2 border-green-500">
-        <div className="font-semibold mb-1">Tool Result: {toolName}</div>
-        <div className="text-sm">
-          Result
-          {/* {renderToolResult(toolName, part.toolInvocation.result, part.toolInvocation.args || {})} */}
-        </div>
+      <div className="bg-green-500/30 text-white px-4 py-2 mr-2 mb-2 rounded-full inline-flex items-center text-sm font-medium shadow-md space-x-1">
+        <svg className="w-4 h-4 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fillRule="evenodd" d="M16.704 4.296a1 1 0 0 1 0 1.408l-8 8a1 1 0 0 1-1.408 0l-4-4a1 1 0 1 1 1.408-1.408L8 11.586l7.296-7.296a1 1 0 0 1 1.408 0z" clipRule="evenodd" />
+        </svg>
+        <span className='ml-1'>Tool <span className="font-bold">{toolName}</span> executed successfully!</span>
       </div>
     )
   }
@@ -75,8 +58,6 @@ const renderToolInvocation = (part: any, messageContent: string) => {
 };
 
 const MessageComponent = ({ message, index }: MessageProps) => {
-
-  const messageParts = message?.parts ?? []
 
   const [copyFeedback, setCopyFeedback] = useState(false);
 
