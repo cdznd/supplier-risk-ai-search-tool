@@ -6,14 +6,78 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 
-import CustomLink from './CustomLink';
+import CustomLink from '../CustomLink';
+
+type ToolInvocationState = 'partial-call' | 'call' | 'result';
+
+interface ToolInvocation {
+  toolName: string;
+  toolCallId: string;
+  state: ToolInvocationState;
+  args?: Record<string, any>;
+  result?: any;
+}
+
+interface MessagePart {
+  type: string;
+  text?: string;
+  toolInvocation?: ToolInvocation;
+}
 
 type MessageProps = {
   message: Message;
   index: number;
 };
 
+const renderToolInvocation = (part: any, messageContent: string) => {
+  if (part.type !== 'tool-invocation') return null;
+
+  const { callId, toolName, state } = part.toolInvocation;
+
+  const isToolCallingInProgress =
+    state === 'partial-call' ||
+    state === 'call' ||
+    (state === 'result' && !messageContent);
+
+  const isToolCallingComplete = state === 'result' && messageContent;
+
+  if (isToolCallingInProgress) {
+    return (
+      <div className="bg-yellow-600/30 text-white px-3 py-1 rounded-full inline-flex items-center mb-2 text-xs font-medium">
+        <span className="animate-pulse mr-2">●</span>
+        <span>Tool Calling {toolName} In Progress ...</span>
+        {/* <span>
+              Tool{parts.filter(isToolInProgress).length > 1 ? 's' : ''} running:
+              {messageParts
+                .filter(isToolInProgress)
+                .map(part => isToolInvocation(part) ? part.toolInvocation.toolName : '')
+                .filter(Boolean)
+                .join(', ')}
+            </span> */}
+      </div>
+    )
+  }
+
+  if (isToolCallingComplete) {
+    return (
+      <div key={callId} className="tool-invocation result p-2 bg-green-900/50 rounded my-2 text-white/90 border-l-2 border-green-500">
+        <div className="font-semibold mb-1">Tool Result: {toolName}</div>
+        <div className="text-sm">
+          Result
+          {/* {renderToolResult(toolName, part.toolInvocation.result, part.toolInvocation.args || {})} */}
+        </div>
+      </div>
+    )
+  }
+
+  return null
+
+};
+
 const MessageComponent = ({ message, index }: MessageProps) => {
+
+  const messageParts = message?.parts ?? []
+
   const [copyFeedback, setCopyFeedback] = useState(false);
 
   const copyMessage = () => {
@@ -22,7 +86,7 @@ const MessageComponent = ({ message, index }: MessageProps) => {
       ?.filter(part => part.type === 'text')
       .map(part => part.text)
       .join('\n');
-    
+
     if (textContent) {
       navigator.clipboard.writeText(textContent)
         .then(() => {
@@ -34,18 +98,21 @@ const MessageComponent = ({ message, index }: MessageProps) => {
   };
 
   return (
-    <div 
-      className={`p-4 rounded-lg transition-all duration-300 ease-in-out animate-fade-in backdrop-blur-sm ${
-        message.role === 'user' // User and AI response should have different styles
-          ? 'bg-[#5e23b3]/70 border-l-4 border-[#5e23b3] ml-auto text-white' 
+    <div
+      className={`p-4 rounded-lg transition-all duration-300 ease-in-out animate-fade-in backdrop-blur-sm
+        ${message.role === 'user' // User and AI response should have different styles
+          ? 'bg-[#5e23b3]/70 border-l-4 border-[#5e23b3] ml-auto text-white'
           : 'bg-[#2D9954]/70 border-l-4 border-[#2D9954] mr-auto text-white'
-      } max-w-[85%] shadow-md hover:shadow-lg transition-shadow relative`}
-      style={{ 
+        } max-w-[85%] shadow-md hover:shadow-lg transition-shadow relative`
+      }
+      style={{
         animationDelay: `${index * 0.1}s`,
         transform: 'translateY(0)',
         opacity: 1
       }}
     >
+
+      {/* Indication of message role */}
       <div className="font-semibold mb-1 flex items-center">
         <div className="flex items-center">
           {message.role === 'user' ? (
@@ -61,9 +128,12 @@ const MessageComponent = ({ message, index }: MessageProps) => {
           )}
         </div>
       </div>
+
       <div className="markdown-content">
-        {message.parts?.map((part, i) => {
+        {message.parts?.map((part: any, i) => {
           switch (part.type) {
+            case 'tool-invocation':
+              return renderToolInvocation(part, message.content);
             case 'text':
               return message.role === 'user' ? (
                 <div key={`${message.id}-${i}`} className="animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
@@ -71,15 +141,15 @@ const MessageComponent = ({ message, index }: MessageProps) => {
                 </div>
               ) : (
                 <div key={`${message.id}-${i}`} className="animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
-                  <ReactMarkdown 
+                  <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeHighlight]}
                     components={{
                       a: ({ node, ...props }) => <CustomLink {...props} />,
                       blockquote: ({ node, ...props }) => (
-                        <blockquote 
-                          className="pl-4 border-l-4 border-blue-300/50 italic text-white/80 my-2 transition-all hover:border-blue-300/70" 
-                          {...props} 
+                        <blockquote
+                          className="pl-4 border-l-4 border-blue-300/50 italic text-white/80 my-2 transition-all hover:border-blue-300/70"
+                          {...props}
                         />
                       ),
                       table: ({ node, ...props }) => (
@@ -101,11 +171,14 @@ const MessageComponent = ({ message, index }: MessageProps) => {
                   </ReactMarkdown>
                 </div>
               );
+            default:
+              return null;
           }
         })}
       </div>
+
       <div className="mt-2 flex justify-end">
-        <button 
+        <button
           onClick={copyMessage}
           className="cursor-pointer text-white/70 hover:text-white transition-colors p-1 rounded-full hover:bg-white/10 flex items-center text-xs"
           title="Copy message"
