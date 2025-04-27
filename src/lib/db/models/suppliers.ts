@@ -69,5 +69,7 @@ export const searchSuppliers = {
   },
   
   // Get all suppliers
-  all: () => suppliers
+  all: () => suppliers,
+
+  allLimited: (limit: number) => suppliers.slice(0, limit),
 }; 
