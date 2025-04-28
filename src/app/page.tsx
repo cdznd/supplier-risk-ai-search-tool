@@ -34,10 +34,10 @@ export default function Chat() {
   }, [messages, shouldScroll]);
 
   return (
-    <div className="flex flex-col h-screen relative">
+    <div className="flex flex-col h-[100vh] w-full max-h-[100vh] relative">
       <Background />
       <Header />
-      <div className="flex-1 w-full max-w-2xl mx-auto px-4 flex flex-col relative">
+      <div className="flex-1 w-full max-w-2xl mx-auto px-4 flex flex-col relative overflow-hidden">
         {messages.length === 0 && (
           <InitialMessage 
             handleInputChange={handleInputChange}
