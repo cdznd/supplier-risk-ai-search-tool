@@ -1,4 +1,4 @@
-# Supplier Risk AI Search Tool
+# Supplier Risk AI Search Tool 🤖
 An AI-powered supplier risk assessment and search tool built with Next.js, and the [Vercel AI SDK](https://sdk.vercel.ai), leveraging Google's Gemini model and custom tool/function calling.
 
 ## Overview
