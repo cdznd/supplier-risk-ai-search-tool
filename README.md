@@ -5,9 +5,20 @@ An AI-powered supplier risk assessment and search tool built with Next.js, and t
 This application provides a conversational interface to query a database of suppliers, allowing users to search and filter suppliers based on risk score, industries, locations, and more. The tool leverages Google's Gemini 2.0 Flash model with the [Google Generative AI Provider](https://sdk.vercel.ai/providers/ai-sdk-providers/google-generative-ai.). And the project is deployed on [Vercel](https://vercel.com/).
 
 ### Technical Challenges and Development Process
-I started by creating a functional UI using the **useChat() hook** while interacting with the AI model, without any tools implemented. During this step, I addressed several implementations related to how we display the AI's response, which usually comes as **Markdown**. My approach involved using the **react-markdown** library along with other plugins, and I also implemented a custom CSS file to modify the HTML format of the response. This included highlighting strong words with different colors, as well as adding effects and color patterns to the text. Also, I implemented a basic feature to copy the message text.
+**UI Development**
 
-The second step focused on implementing the tools. I started by improving and refactoring the mock database I created, which consists of a JSON file and a "model" file that simulates queries and ORM operations using native JavaScript native functions like .filter and .slice to filter the items from the JSON. I also leveraged TypeScript for type safety with these items. The model's functions are directly used by the **tool functions** implemented in StreamText.
+I started by creating a functional UI using the **useChat() hook** while interacting with the AI model, without any tools implemented. During this step, I addressed several implementations related to how we display the AI's response, which usually comes as **Markdown**. 
+
+My approach involved using the **react-markdown** library along with other plugins, and I also implemented a custom CSS file to modify the HTML format of the response. 
+This included highlighting strong words with different colors, as well as adding effects and color patterns to the text. Also, I implemented a basic feature to copy the message text.
+
+**Tool Calling Implementation**
+
+The second step focused on implementing the tools. I started by improving and refactoring the mock database I created, which consists of a JSON file and a "model" file that simulates queries and ORM operations using native JavaScript native functions like .filter and .slice to filter the items from the JSON. I also leveraged TypeScript for type safety with these items. 
+
+The model's functions are directly used by the **tool functions** implemented in StreamText.
+
+**maxSteps Configuration**
 
 During this implementation, it's important to be aware of the **maxSteps configuration** and fine-tune it based on the complexity of our prompts. In our case, 3 steps are more than enough. This function is crucial for leveraging Multi-Step Calls where we:
 - First, we send the prompt to the model, which generates a tool call and executes it.
@@ -18,7 +29,7 @@ Another important concept is defining an initial prompt using the system field o
 
 **Tool Call Progress**
 
-To implement feedback for tool calls, showing when they are in progress and when they are finished, we should make use of the message part called tool invocation. Based on its state (partial-call, call, result), we can display whether the tool is in progress or has been completed.
+To implement feedback for tool calls, showing when they are in progress and when they are finished, we should make use of the message part called tool invocation. Based on its state (**partial-call**, **call**, **result**), we can display whether the tool is in progress or has been completed.
 <p align="center">
   <table>
     <tr>
