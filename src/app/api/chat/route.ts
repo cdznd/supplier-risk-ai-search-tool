@@ -1,21 +1,42 @@
 import { streamText } from 'ai';
 
 import { geminiModel } from '@/lib/ai';
-import { getSuppliersByRiskScoreTool, listSuppliersTool } from '@/lib/tools';
+import { 
+  getSuppliersByRiskScore, 
+  listSuppliers, 
+  getTopRiskiestSuppliers,
+  getLowestRiskSuppliers,
+  getSuppliersByIndustry,
+  getSuppliersByRiskCategory,
+  getSuppliersByLocation,
+  getSuppliersByMultipleRiskCategories
+} from '@/lib/tools';
 
-export const maxDuration = 30; // This function can run for a maximum of 5 seconds
+export const maxDuration = 30; // This function can run for a maximum of 30 seconds
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = streamText({
     model: geminiModel,
-    system: 'You are a helpful assistant.',
+    system: `
+      You are a helpful AI assistant specializing in supplier risk assessment and data retrieval. Your primary function is to provide users with information from a mock supplier database.
+      Format your responses clearly and professionally.
+      When listing suppliers, highlight the supplier names using markdown bold.
+      Present the requested information in a structured and easy-to-read format (e.g., lists, tables, or well-formatted paragraphs).
+      Be conversational and helpful.
+    `,
     messages,
     toolCallStreaming: true,
     tools: {
-      listSuppliers: listSuppliersTool,
-      getSuppliersByRiskScore: getSuppliersByRiskScoreTool,
+      listSuppliers,
+      getSuppliersByRiskScore,
+      getTopRiskiestSuppliers,
+      getLowestRiskSuppliers,
+      getSuppliersByIndustry,
+      getSuppliersByRiskCategory,
+      getSuppliersByLocation,
+      getSuppliersByMultipleRiskCategories
     },
     maxSteps: 3,
     toolChoice: 'auto',
