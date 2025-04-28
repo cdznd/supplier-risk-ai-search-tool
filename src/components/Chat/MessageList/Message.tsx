@@ -180,7 +180,7 @@ const MessageComponent = ({ message, index }: MessageProps) => {
       </div>
 
       <div className="markdown-content">
-        {message.parts?.map((part: any, i) => renderMessagePart(part, message, i))}
+        {message.parts?.map((part: MessagePart, i) => renderMessagePart(part, message, i))}
       </div>
 
       <div className="mt-2 flex justify-end">
