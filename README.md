@@ -14,7 +14,7 @@ This included highlighting strong words with different colors, as well as adding
 
 **Tool Calling Implementation**
 
-The second step focused on implementing the tools. I started by improving and refactoring the mock database I created, which consists of a JSON file and a "model" file that simulates queries and ORM operations using native JavaScript native functions like .filter and .slice to filter the items from the JSON. I also leveraged TypeScript for type safety with these items. 
+The second step focused on implementing the tools. I started by improving and refactoring the mock database I created, which consists of a JSON file and a "model" file that simulates queries and ORM operations using native JavaScript functions like **.filter** and **.slice** to filter the items from the JSON. I also leveraged TypeScript for type safety with these items. 
 
 The model's functions are directly used by the **tool functions** implemented in StreamText.
 
