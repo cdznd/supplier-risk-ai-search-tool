@@ -31,7 +31,7 @@ const ExampleQuery = ({ query, handleInputChange }: { query: string; handleInput
                 border border-gray-200 dark:border-gray-600
                 text-gray-800 dark:text-gray-200
                 hover:bg-gray-100 dark:hover:bg-gray-600/80
-                shadow-sm hover:shadow"
+                shadow-sm hover:shadow cursor-pointer"
       onClick={() => {
         // Find the chat textarea and set its value
         const textareaElement = document.querySelector('textarea') as HTMLTextAreaElement;
