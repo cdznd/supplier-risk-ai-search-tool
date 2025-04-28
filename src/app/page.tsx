@@ -3,10 +3,10 @@
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useRef, useState } from 'react';
 
-import Background from '../components/layout/Background';
-import Header from '../components/layout/Header';
-import MessageList from '../components/chat/MessageList';
-import ChatForm from '../components/chat/ChatForm';
+import Background from '@/components/layout/Background';
+import Header from '@/components/layout/Header';
+import MessageList from '@/components/chat/MessageList';
+import ChatForm from '@/components/chat/ChatForm';
 
 import InitialMessage from '@/components/chat/InitialMessage';
 
@@ -39,7 +39,9 @@ export default function Chat() {
       <Header />
       <div className="flex-1 w-full max-w-2xl mx-auto px-4 flex flex-col relative">
         {messages.length === 0 && (
-          <InitialMessage />
+          <InitialMessage 
+            handleInputChange={handleInputChange}
+          />
         )}
         {messages.length > 0 && (
           <MessageList 
@@ -50,7 +52,7 @@ export default function Chat() {
             error={error}
           />
         )}
-        <ChatForm 
+        <ChatForm
           input={input} 
           handleInputChange={handleInputChange} 
           onSubmit={onSubmit} 
