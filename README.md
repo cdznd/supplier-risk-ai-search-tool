@@ -2,7 +2,7 @@
 An AI-powered supplier risk assessment and search tool built with Next.js, and the [Vercel AI SDK](https://sdk.vercel.ai), leveraging Google's Gemini model and custom tool/function calling.
 
 ## Overview
-This application provides a conversational interface to query a database of suppliers, allowing users to search and filter suppliers based on risk score, industries, locations, and more. The tool leverages Google's Gemini 2.0 Flash model with the [Google Generative AI Provider](https://sdk.vercel.ai/providers/ai-sdk-providers/google-generative-ai.)
+This application provides a conversational interface to query a database of suppliers, allowing users to search and filter suppliers based on risk score, industries, locations, and more. The tool leverages Google's Gemini 2.0 Flash model with the [Google Generative AI Provider](https://sdk.vercel.ai/providers/ai-sdk-providers/google-generative-ai.). And the project is deployed on [Vercel](https://vercel.com/).
 
 ### Technical Challenges and Development Process
 I started by creating a functional UI using the **useChat() hook** while interacting with the AI model, without any tools implemented. During this step, I addressed several implementations related to how we display the AI's response, which usually comes as **Markdown**. My approach involved using the **react-markdown** library along with other plugins, and I also implemented a custom CSS file to modify the HTML format of the response. This included highlighting strong words with different colors, as well as adding effects and color patterns to the text. Also, I implemented a basic feature to copy the message text.
