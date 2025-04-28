@@ -10,22 +10,31 @@ import CustomLink from '../CustomLink';
 
 import { BlinkBlur } from 'react-loading-indicators';
 
-type MessagePart = {
+// Types
+interface MessagePart {
   type: string;
   text?: string;
-  toolInvocation?: any;
+  toolInvocation?: {
+    toolName: string;
+    state: 'partial-call' | 'call' | 'result';
+  };
 }
 
-type MessageProps = {
+interface MessageProps {
   message: Message;
   index: number;
-};
+}
 
-const renderToolInvocation = (part: MessagePart, messageContent: string) => {
-  if (part.type !== 'tool-invocation') return null;
-
-  const { toolName, state } = part.toolInvocation;
-
+// Sub-components
+const ToolInvocationIndicator = ({ 
+  toolName, 
+  state, 
+  messageContent 
+}: { 
+  toolName: string; 
+  state: string; 
+  messageContent: string;
+}) => {
   const isToolCallingInProgress =
     state === 'partial-call' ||
     state === 'call' ||
@@ -39,7 +48,7 @@ const renderToolInvocation = (part: MessagePart, messageContent: string) => {
         <BlinkBlur color="#CBAF03" size="small" text="" textColor="" style={{ fontSize: '4px' }} />
         <span className='ml-1'>Executing <span className="font-bold">{toolName}</span> tool</span>
       </div>
-    )
+    );
   }
 
   if (isToolCallingComplete) {
@@ -50,19 +59,78 @@ const renderToolInvocation = (part: MessagePart, messageContent: string) => {
         </svg>
         <span className='ml-1'>Tool <span className="font-bold">{toolName}</span> executed successfully!</span>
       </div>
-    )
+    );
   }
 
-  return null
-
+  return null;
 };
 
-const MessageComponent = ({ message, index }: MessageProps) => {
+const UserTextContent = ({ text, messageId, index }: { text: string; messageId: string; index: number }) => (
+  <div key={`${messageId}-${index}`} className="animate-fade-in" style={{ animationDelay: `${index * 0.05}s` }}>
+    {text}
+  </div>
+);
 
+const AITextContent = ({ text, messageId, index }: { text: string; messageId: string; index: number }) => (
+  <div key={`${messageId}-${index}`} className="animate-fade-in" style={{ animationDelay: `${index * 0.05}s` }}>
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeHighlight]}
+      components={{
+        a: ({ node, ...props }) => <CustomLink {...props} />,
+        blockquote: ({ node, ...props }) => (
+          <blockquote
+            className="pl-4 border-l-4 border-blue-300/50 italic text-white/80 my-2 transition-all hover:border-blue-300/70"
+            {...props}
+          />
+        ),
+        table: ({ node, ...props }) => (
+          <div className="overflow-x-auto my-4">
+            <table className="min-w-full" {...props} />
+          </div>
+        ),
+        li: ({ node, children, ...props }) => (
+          <li {...props}>
+            <span className="li-content text-white/90">{children}</span>
+          </li>
+        ),
+        p: ({ node, children, ...props }) => (
+          <p className="my-2 text-white/80" {...props}>{children}</p>
+        ),
+      }}
+    >
+      {text}
+    </ReactMarkdown>
+  </div>
+);
+
+// Helper functions
+const renderMessagePart = (part: MessagePart, message: Message, index: number) => {
+  switch (part.type) {
+    case 'tool-invocation':
+      if (!part.toolInvocation) return null;
+      return (
+        <ToolInvocationIndicator
+          toolName={part.toolInvocation.toolName}
+          state={part.toolInvocation.state}
+          messageContent={message.content}
+        />
+      );
+    case 'text':
+      if (!part.text) return null;
+      return message.role === 'user' 
+        ? <UserTextContent text={part.text} messageId={message.id} index={index} />
+        : <AITextContent text={part.text} messageId={message.id} index={index} />;
+    default:
+      return null;
+  }
+};
+
+// Main component
+const MessageComponent = ({ message, index }: MessageProps) => {
   const [copyFeedback, setCopyFeedback] = useState(false);
 
   const copyMessage = () => {
-    // Extract text content from message parts
     const textContent = message.parts
       ?.filter(part => part.type === 'text')
       .map(part => part.text)
@@ -78,25 +146,25 @@ const MessageComponent = ({ message, index }: MessageProps) => {
     }
   };
 
+  const isUserMessage = message.role === 'user';
+  const messageClasses = `p-4 rounded-lg transition-all duration-300 ease-in-out animate-fade-in backdrop-blur-sm
+    ${isUserMessage 
+      ? 'bg-[#5e23b3]/70 border-l-4 border-[#5e23b3] ml-auto text-white'
+      : 'bg-[#2D9954]/70 border-l-4 border-[#2D9954] mr-auto text-white'
+    } max-w-[85%] shadow-md hover:shadow-lg transition-shadow relative`;
+
   return (
     <div
-      className={`p-4 rounded-lg transition-all duration-300 ease-in-out animate-fade-in backdrop-blur-sm
-        ${message.role === 'user' // User and AI response should have different styles
-          ? 'bg-[#5e23b3]/70 border-l-4 border-[#5e23b3] ml-auto text-white'
-          : 'bg-[#2D9954]/70 border-l-4 border-[#2D9954] mr-auto text-white'
-        } max-w-[85%] shadow-md hover:shadow-lg transition-shadow relative`
-      }
+      className={messageClasses}
       style={{
         animationDelay: `${index * 0.1}s`,
         transform: 'translateY(0)',
         opacity: 1
       }}
     >
-
-      {/* Indication of message role */}
       <div className="font-semibold mb-1 flex items-center">
         <div className="flex items-center">
-          {message.role === 'user' ? (
+          {isUserMessage ? (
             <>
               <span className="mr-2">You:</span>
               <div className="h-1.5 w-1.5 rounded-full bg-white/70 animate-pulse"></div>
@@ -111,51 +179,7 @@ const MessageComponent = ({ message, index }: MessageProps) => {
       </div>
 
       <div className="markdown-content">
-        {message.parts?.map((part: any, i) => {
-          switch (part.type) {
-            case 'tool-invocation':
-              return renderToolInvocation(part, message.content);
-            case 'text':
-              return message.role === 'user' ? (
-                <div key={`${message.id}-${i}`} className="animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
-                  {part.text}
-                </div>
-              ) : (
-                <div key={`${message.id}-${i}`} className="animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[rehypeHighlight]}
-                    components={{
-                      a: ({ node, ...props }) => <CustomLink {...props} />,
-                      blockquote: ({ node, ...props }) => (
-                        <blockquote
-                          className="pl-4 border-l-4 border-blue-300/50 italic text-white/80 my-2 transition-all hover:border-blue-300/70"
-                          {...props}
-                        />
-                      ),
-                      table: ({ node, ...props }) => (
-                        <div className="overflow-x-auto my-4">
-                          <table className="min-w-full" {...props} />
-                        </div>
-                      ),
-                      li: ({ node, children, ...props }) => (
-                        <li {...props}>
-                          <span className="li-content text-white/90">{children}</span>
-                        </li>
-                      ),
-                      p: ({ node, children, ...props }) => {
-                        return <p className="my-2 text-white/80" {...props}>{children}</p>;
-                      },
-                    }}
-                  >
-                    {part.text}
-                  </ReactMarkdown>
-                </div>
-              );
-            default:
-              return null;
-          }
-        })}
+        {message.parts?.map((part: any, i) => renderMessagePart(part, message, i))}
       </div>
 
       <div className="mt-2 flex justify-end">
