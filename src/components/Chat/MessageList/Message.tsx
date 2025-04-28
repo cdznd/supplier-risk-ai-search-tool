@@ -111,6 +111,7 @@ const renderMessagePart = (part: MessagePart, message: Message, index: number) =
       if (!part.toolInvocation) return null;
       return (
         <ToolInvocationIndicator
+          key={`${part.toolInvocation.toolName}-${message.id}`}
           toolName={part.toolInvocation.toolName}
           state={part.toolInvocation.state}
           messageContent={message.content}
@@ -119,8 +120,8 @@ const renderMessagePart = (part: MessagePart, message: Message, index: number) =
     case 'text':
       if (!part.text) return null;
       return message.role === 'user' 
-        ? <UserTextContent text={part.text} messageId={message.id} index={index} />
-        : <AITextContent text={part.text} messageId={message.id} index={index} />;
+        ? <UserTextContent key={message.id} text={part.text} messageId={message.id} index={index} />
+        : <AITextContent key={message.id} text={part.text} messageId={message.id} index={index} />;
     default:
       return null;
   }
