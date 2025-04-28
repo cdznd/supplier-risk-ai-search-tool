@@ -1,0 +1,286 @@
+{
+  "suppliers": [
+    {
+      "id": 1,
+      "name": "MediTech Solutions",
+      "riskScore": 8,
+      "riskCategories": [
+        "Compliance",
+        "Cybersecurity",
+        "Operational"
+      ],
+      "location": "Boston, USA",
+      "industry": "Healthcare"
+    },
+    {
+      "id": 2,
+      "name": "GlobalChip Manufacturing",
+      "riskScore": 7,
+      "riskCategories": [
+        "Supply Chain",
+        "Geopolitical",
+        "Financial"
+      ],
+      "location": "Taipei, Taiwan",
+      "industry": "Electronics"
+    },
+    {
+      "id": 3,
+      "name": "EcoPlastics Inc.",
+      "riskScore": 6,
+      "riskCategories": [
+        "Environmental",
+        "Reputational",
+        "Compliance"
+      ],
+      "location": "Frankfurt, Germany",
+      "industry": "Manufacturing"
+    },
+    {
+      "id": 4,
+      "name": "FinSecure Solutions",
+      "riskScore": 9,
+      "riskCategories": [
+        "Cybersecurity",
+        "Compliance",
+        "Financial"
+      ],
+      "location": "London, UK",
+      "industry": "Financial Services"
+    },
+    {
+      "id": 5,
+      "name": "AgriGlobal Distributors",
+      "riskScore": 4,
+      "riskCategories": [
+        "Supply Chain",
+        "Operational",
+        "Environmental"
+      ],
+      "location": "São Paulo, Brazil",
+      "industry": "Agriculture"
+    },
+    {
+      "id": 6,
+      "name": "CareHealth Systems",
+      "riskScore": 7,
+      "riskCategories": [
+        "Compliance",
+        "Legal",
+        "Operational"
+      ],
+      "location": "Chicago, USA",
+      "industry": "Healthcare"
+    },
+    {
+      "id": 7,
+      "name": "PrecisionParts Ltd.",
+      "riskScore": 5,
+      "riskCategories": [
+        "Supply Chain",
+        "Operational",
+        "Financial"
+      ],
+      "location": "Stuttgart, Germany",
+      "industry": "Automotive"
+    },
+    {
+      "id": 8,
+      "name": "CloudSecure Technologies",
+      "riskScore": 8,
+      "riskCategories": [
+        "Cybersecurity",
+        "Legal",
+        "Compliance"
+      ],
+      "location": "San Francisco, USA",
+      "industry": "Technology"
+    },
+    {
+      "id": 9,
+      "name": "PharmaNova",
+      "riskScore": 6,
+      "riskCategories": [
+        "Compliance",
+        "Reputational",
+        "Legal"
+      ],
+      "location": "Basel, Switzerland",
+      "industry": "Healthcare"
+    },
+    {
+      "id": 10,
+      "name": "RawMaterials Global",
+      "riskScore": 7,
+      "riskCategories": [
+        "Geopolitical",
+        "Environmental",
+        "Supply Chain"
+      ],
+      "location": "Melbourne, Australia",
+      "industry": "Mining"
+    },
+    {
+      "id": 11,
+      "name": "Alpha Supplies",
+      "riskScore": 8,
+      "riskCategories": [
+        "Financial",
+        "Compliance"
+      ],
+      "location": "New York, USA",
+      "industry": "Manufacturing"
+    },
+    {
+      "id": 12,
+      "name": "Beta Logistics",
+      "riskScore": 5,
+      "riskCategories": [
+        "Supply Chain",
+        "Operational"
+      ],
+      "location": "Berlin, Germany",
+      "industry": "Logistics"
+    },
+    {
+      "id": 13,
+      "name": "Gamma Tech",
+      "riskScore": 7,
+      "riskCategories": [
+        "Cybersecurity",
+        "Operational"
+      ],
+      "location": "San Francisco, USA",
+      "industry": "Technology"
+    },
+    {
+      "id": 14,
+      "name": "Delta Chemicals",
+      "riskScore": 9,
+      "riskCategories": [
+        "Environmental",
+        "Compliance"
+      ],
+      "location": "Shanghai, China",
+      "industry": "Chemical"
+    },
+    {
+      "id": 15,
+      "name": "Epsilon Foods",
+      "riskScore": 4,
+      "riskCategories": [
+        "Operational"
+      ],
+      "location": "São Paulo, Brazil",
+      "industry": "Food & Beverage"
+    },
+    {
+      "id": 16,
+      "name": "Zeta Energy",
+      "riskScore": 6,
+      "riskCategories": [
+        "Environmental",
+        "Geopolitical"
+      ],
+      "location": "Dubai, UAE",
+      "industry": "Energy"
+    },
+    {
+      "id": 17,
+      "name": "Eta Textiles",
+      "riskScore": 3,
+      "riskCategories": [
+        "Supply Chain"
+      ],
+      "location": "Mumbai, India",
+      "industry": "Textile"
+    },
+    {
+      "id": 18,
+      "name": "Theta Construction",
+      "riskScore": 7,
+      "riskCategories": [
+        "Operational",
+        "Legal"
+      ],
+      "location": "Toronto, Canada",
+      "industry": "Construction"
+    },
+    {
+      "id": 19,
+      "name": "Iota Metals",
+      "riskScore": 5,
+      "riskCategories": [
+        "Environmental",
+        "Supply Chain"
+      ],
+      "location": "Johannesburg, South Africa",
+      "industry": "Mining"
+    },
+    {
+      "id": 20,
+      "name": "Kappa Pharmaceuticals",
+      "riskScore": 8,
+      "riskCategories": [
+        "Compliance",
+        "Legal"
+      ],
+      "location": "Basel, Switzerland",
+      "industry": "Pharmaceutical"
+    },
+    {
+      "id": 21,
+      "name": "Lambda Agriculture",
+      "riskScore": 2,
+      "riskCategories": [
+        "Environmental"
+      ],
+      "location": "Buenos Aires, Argentina",
+      "industry": "Agriculture"
+    },
+    {
+      "id": 22,
+      "name": "Mu Electronics",
+      "riskScore": 6,
+      "riskCategories": [
+        "Supply Chain",
+        "Cybersecurity"
+      ],
+      "location": "Seoul, South Korea",
+      "industry": "Electronics"
+    },
+    {
+      "id": 23,
+      "name": "Nu Insurance",
+      "riskScore": 7,
+      "riskCategories": [
+        "Financial",
+        "Legal"
+      ],
+      "location": "London, UK",
+      "industry": "Insurance"
+    },
+    {
+      "id": 24,
+      "name": "Xi Retail",
+      "riskScore": 5,
+      "riskCategories": [
+        "Operational",
+        "Reputational"
+      ],
+      "location": "Paris, France",
+      "industry": "Retail"
+    },
+    {
+      "id": 25,
+      "name": "Omicron IT Services",
+      "riskScore": 9,
+      "riskCategories": [
+        "Cybersecurity",
+        "Reputational"
+      ],
+      "location": "Tel Aviv, Israel",
+      "industry": "Information Technology"
+    }
+  ]
+}
