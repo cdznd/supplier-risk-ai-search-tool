@@ -3,12 +3,12 @@
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useRef, useState } from 'react';
 
-import Background from '../components/Background';
-import Header from '../components/Header';
-import MessageList from '../components/MessageList';
-import ChatForm from '../components/ChatForm';
+import Background from '../components/layout/Background';
+import Header from '../components/layout/Header';
+import MessageList from '../components/chat/MessageList';
+import ChatForm from '../components/chat/ChatForm';
 
-import InitialMessage from '@/components/Chat/InitialMessage';
+import InitialMessage from '@/components/chat/InitialMessage';
 
 export default function Chat() {
 
