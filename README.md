@@ -115,12 +115,12 @@ Project screenshots:
 <p align="center">
   <table>
     <tr>
-      <td><img src="public/ss1.jpeg" alt="Private Feed Dark Mode" width="500"></td>
-      <td><img src="public/ss2.png" alt="Profile" width="500"></td>
+      <td><img src="public/project_screenshots/ss1.jpeg" alt="Private Feed Dark Mode" width="500"></td>
+      <td><img src="public/project_screenshots/ss2.png" alt="Profile" width="500"></td>
     </tr>
     <tr>
-      <td><img src="public/ss3.png" alt="Explore" width="500"></td>
-      <td><img src="public/ss4.png" alt="Friend Profile" width="500"></td>
+      <td><img src="public/project_screenshots/ss3.png" alt="Explore" width="500"></td>
+      <td><img src="public/project_screenshots/ss4.png" alt="Friend Profile" width="500"></td>
     </tr>
   </table>
 </p>
