@@ -14,11 +14,11 @@ type MessageListProps = {
 
 const MessageList = ({ messages, isLoading, isSubmitted, messagesEndRef, error }: MessageListProps) => {
   return (
-    <div className="absolute inset-0 overflow-y-scroll w-full p-4
+    <div className="absolute inset-0 overflow-y-scroll w-full p-4 pb-24
                     scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 
                     scrollbar-track-transparent hover:scrollbar-thumb-gray-400 
                     dark:hover:scrollbar-thumb-gray-500">
-      <div className="space-y-4 min-h-full pb-40">
+      <div className="space-y-4 min-h-full pb-24">
         {/* Mapping all the messages into the message component */}
         {messages.map((message, index) => (
           <Message key={message.id} message={message} index={index} />

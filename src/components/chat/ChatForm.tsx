@@ -35,7 +35,7 @@ const ChatForm = ({ input, handleInputChange, onSubmit, isLoading }: ChatFormPro
   };
 
   return (
-    <form onSubmit={onSubmit} className="absolute bottom-0 left-0 right-0 p-4 z-20 flex justify-center">
+    <form onSubmit={onSubmit} className="fixed bottom-0 left-0 right-0 p-4 z-20 flex justify-center">
       <div className="w-full max-w-xl flex items-center">
         <div className="flex-grow flex items-center relative">
           <textarea
