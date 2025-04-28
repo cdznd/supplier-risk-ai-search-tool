@@ -109,11 +109,18 @@ The application provides several AI tools for supplier queries:
 
 ## Screenshots
 
-![Main Chat Interface](/path/to/screenshot1.png)
-*Caption: The main chat interface showing a conversation with the AI assistant*
+## Screenshots
+Project screenshots:
 
-![Supplier Risk Analysis](/path/to/screenshot2.png)
-*Caption: Example of a supplier risk analysis response from the AI*
-
-![Mobile Interface](/path/to/screenshot3.png)
-*Caption: Mobile responsive view of the application*
+<p align="center">
+  <table>
+    <tr>
+      <td><img src="public/ss1.jpeg" alt="Private Feed Dark Mode" width="500"></td>
+      <td><img src="public/ss2.png" alt="Profile" width="500"></td>
+    </tr>
+    <tr>
+      <td><img src="public/ss3.png" alt="Explore" width="500"></td>
+      <td><img src="public/ss4.png" alt="Friend Profile" width="500"></td>
+    </tr>
+  </table>
+</p>
